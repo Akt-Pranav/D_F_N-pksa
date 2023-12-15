@@ -12,7 +12,7 @@ document.getElementById('reset').onclick=function(){window.location.reload();}
 function processFile(file){if(!file.type||!file.type.startsWith('image')){return;}
 uploadEl.classList.add('show-overlay');loaderEl.classList.remove('hidden');readyEl.classList.add('hidden');const reader=new FileReader();reader.onload=async function(){try{const data=await convert(reader.result);const url=API+'/?'+serialKey;if(serialKey){n--;localStorage.serial_key_usability=n;if(n===0){removeKey();}else{usabilityEl.innerText=getUsabilityText();}
 removeBlurEl.classList.add('hidden');}else{removeBlurEl.classList.remove('hidden');}
-const res=await fetch(url,{method:'POST',body:data});if(res.status!==200){throw new Error('Received unexpected status code: '+res.status);}
+if(res.status!==200){throw new Error('Received unexpected status code: '+res.status);}
 const json=await res.json();a.href=img.src=json.imgData;a.download='deep-nude.co - '+Math.random().toString(32).slice(2)+'.jpg';verifyUrl=json.verifyUrl;if(verifyUrl){verifyKey='v_'+Math.random();readyTextEl.innerText='Your nude is ready! Please verify that you are a human to view the full high quality image.';showEl.innerText='Start verification';}else{setOldText();}
 readyEl.classList.remove('hidden');}catch(error){logError(error);uploadEl.classList.remove('show-overlay');}}
 reader.readAsDataURL(file);}
